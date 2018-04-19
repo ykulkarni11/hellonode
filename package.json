@@ -16,7 +16,7 @@
     "docker",
     "dockerfile"
   ],
-  "author": "miiro@getintodevops.com",
+  "author": "yogirajdk1993@gmail.com",
   "license": "ISC",
   "devDependencies": { "test": ">=0.6.0" }
 }
