@@ -32,5 +32,9 @@ node {
             app.push("latest")
         }
     }
+    
+    stage('Run image'){
+    sh "docker run -dit -p 8000:8000 yogiraj11/docker-hub-credentials"
+    }
 
 }
