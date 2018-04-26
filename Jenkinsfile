@@ -23,9 +23,14 @@ node {
         }
     }
     
-     stage('Run image'){
+     /*stage('Run image'){
     sh "docker run -dit -p 8000:8000 yogiraj11/docker-hub-credentials"
-    }
+    }*/
+    
+    stage ('Run') {
+            docker.image("docker-hub-credentials:${env.version}").run('-p 8000:8000 -h discovery --name discovery')
+        }
+    
     /*stage('Push image') {
          Finally, we'll push the image with two tags:
          * First, the incremental build number from Jenkins
