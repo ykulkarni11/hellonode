@@ -48,9 +48,8 @@ node {
             sh 'echo branch not master'
         }
         }
-    }
-    
-
+ 
+   
 stage('Deploy'){
     if(env.BRANCH_NAME.startsWith("master")){
     sh './deploy.sh'
