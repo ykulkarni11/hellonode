@@ -1,3 +1,5 @@
+pipeline{
+
 node {
     def app
 
@@ -71,4 +73,5 @@ node {
         }
    
 
+}
 }
