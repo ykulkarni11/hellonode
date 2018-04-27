@@ -17,16 +17,16 @@ node {
             sh 'echo "Tests passed"'
         }
   
-  stage 'Build Push'
+  stage 'Build Push'{
   docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push("master")
         }
-  
-  stage 'Build Deploy'
+  } 
+  stage 'Build Deploy'{
      docker pull yogiraj11/storeweb:master
      docker stack deploy --compose-file docker-compose.yml StoreWebStack
-  
+  }
   
   
 /*
