@@ -1,5 +1,3 @@
-
-
     node {
         def app
     
@@ -22,11 +20,8 @@
 
         app.inside {
             sh 'echo "Tests passed"'
-        }
-    
-    
-    
-    
+                    }
+        } 
         stage('Push image') {
         // Finally, we'll push the image with two tags:
          //* First, the incremental build number from Jenkins
@@ -37,29 +32,4 @@
             app.push("master")
         }
     }
-    
-    
-   
-/*stage('Deploy'){
-    if(env.BRANCH_NAME.startsWith("master")){
-    sh './deploy.sh'
     }
-    else{
-    sh 'echo branch not master'
-    }
-}*/
-    
-    /* stage('Deploy') {
-            when {
-              expression {
-                currentBuild.result == null || currentBuild.result == 'SUCCESS' 
-              }
-            }
-            steps {
-                sh './deploy.sh'
-            }
-        }
-   
-    }*/
-  
-        }
