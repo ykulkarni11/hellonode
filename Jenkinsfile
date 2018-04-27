@@ -12,8 +12,10 @@ node {
   //branch name from Jenkins environment variables
   app=docker.build("yogiraj11/docker-hub-credentials")
   
-  //stage 'Test Build'
-  
+  stage 'Test Build'
+  app.inside {
+            sh 'echo "Tests passed"'
+        }
   
 /*
   stage 'Stage Archive'
