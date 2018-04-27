@@ -41,22 +41,22 @@ node {
          //* First, the incremental build number from Jenkins
         // * Second, the 'latest' tag.
         // * Pushing multiple tags is cheap, as all the layers are reused. 
-        if(env.BRANCH_NAME.startsWith('develop')){
+        if(env.BRANCH_NAME.startsWith('master')){
          sh './push.sh'   
         }else
         {
-            sh 'echo branch not develop'
+            sh 'echo branch not master'
         }
         }
     }
     
 
 stage('Deploy'){
-    if(env.BRANCH_NAME.startsWith("develop")){
+    if(env.BRANCH_NAME.startsWith("master")){
     sh './deploy.sh'
     }
     else{
-    sh 'echo branch not develop'
+    sh 'echo branch not master'
     }
 }
    
