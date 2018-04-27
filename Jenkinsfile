@@ -26,7 +26,7 @@ node {
   stage 'Build Deploy'
     
   
-  sh "docker pull yogiraj11/storeweb:master"
+  sh "docker pull yogiraj11/docker-hub-credentials"
     // docker stack deploy --compose-file docker-compose.yml StoreWebStack
   
   
