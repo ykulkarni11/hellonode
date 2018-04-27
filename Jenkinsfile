@@ -1,41 +1,64 @@
-node {
-  def app
-  // Mark the code checkout 'stage'....
-  stage 'Stage Checkout'
 
-  // Checkout code from repository and update any submodules
-  checkout scm
-  sh 'git submodule update --init'  
 
-  stage 'Stage Build'
+    node {
+        def app
+    
+        stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
 
-  //branch name from Jenkins environment variables
-  app=docker.build("yogiraj11/docker-hub-credentials")
-  
-  stage 'Test Build'
-  app.inside {
+        checkout scm
+    }
+    
+        stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        app = docker.build("yogiraj11/docker-hub-credentials")
+    }
+
+        stage('Test image') {
+        /* Ideally, we would run a test framework against our image.
+         * For this example, we're using a Volkswagen-type approach ;-) */
+
+        app.inside {
             sh 'echo "Tests passed"'
         }
-  
-  stage 'Build Push'
-  docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') 
+    
+    
+    
+    
+        stage('Push image') {
+        // Finally, we'll push the image with two tags:
+         //* First, the incremental build number from Jenkins
+        // * Second, the 'latest' tag.
+        // * Pushing multiple tags is cheap, as all the layers are reused. 
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("${env.BUILD_NUMBER}")
             app.push("master")
-        
-  
-  stage 'Build Deploy'
+        }
+    }
     
+    
+   
+/*stage('Deploy'){
+    if(env.BRANCH_NAME.startsWith("master")){
+    sh './deploy.sh'
+    }
+    else{
+    sh 'echo branch not master'
+    }
+}*/
+    
+    /* stage('Deploy') {
+            when {
+              expression {
+                currentBuild.result == null || currentBuild.result == 'SUCCESS' 
+              }
+            }
+            steps {
+                sh './deploy.sh'
+            }
+        }
+   
+    }*/
   
-  sh "docker pull yogiraj11/docker-hub-credentials"
-    // docker stack deploy --compose-file docker-compose.yml StoreWebStack
-  
-  
-  
-/*
-  stage 'Stage Archive'
-  //tell Jenkins to archive the apks
-  archiveArtifacts artifacts: 'app/build/outputs/apk/*.apk', fingerprint: true
-
-  stage 'Stage Upload To Fabric'
-  sh "./gradlew crashlyticsUploadDistribution${flavor}Debug  -PBUILD_NUMBER=${env.BUILD_NUMBER}"*/
-}
