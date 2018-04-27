@@ -1,4 +1,5 @@
 node {
+  def app
   // Mark the code checkout 'stage'....
   stage 'Stage Checkout'
 
@@ -9,7 +10,11 @@ node {
   stage 'Stage Build'
 
   //branch name from Jenkins environment variables
-  docker.build("yogiraj11/docker-hub-credentials")
+  app=docker.build("yogiraj11/docker-hub-credentials")
+  
+  //stage 'Test Build'
+  
+  
 /*
   stage 'Stage Archive'
   //tell Jenkins to archive the apks
