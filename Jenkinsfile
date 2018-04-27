@@ -1,5 +1,5 @@
 pipeline {
-    def app
+ //   def app
     agent any
 
     stages {
@@ -8,18 +8,8 @@ pipeline {
           }
     
         stage('Build image') {
-                app = docker.build("yogiraj11/docker-hub-credentials")
+               docker.build("yogiraj11/docker-hub-credentials")
             }
         
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
-    }
+      }
 }
