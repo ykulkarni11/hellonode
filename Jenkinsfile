@@ -17,6 +17,14 @@ node {
             sh 'echo "Tests passed"'
         }
   
+  stage 'Build Push'
+  docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("master")
+        }
+  
+  
+  
 /*
   stage 'Stage Archive'
   //tell Jenkins to archive the apks
