@@ -1,6 +1,6 @@
 services: 
   web:
-     image: yogiraj11/storeweb
+     image: yogiraj11/storeweb:master
      deploy:
       restart_policy: 
         condition: on-failure
