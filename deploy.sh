@@ -1,2 +1,2 @@
 docker pull yogiraj11/storeweb:master
-docker stack deploy --compose-file docker-compose.yml StoreWebStack
+docker run -d -p 8000:8000 yogiraj11/storeweb:master
