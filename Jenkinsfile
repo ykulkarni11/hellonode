@@ -32,4 +32,10 @@
             app.push("master")
         }
     }
+     stage('Deploy') {
+        echo 'Deploying to Staging'
+       sh './deploy.sh'
+         
+        
+    }
     }
