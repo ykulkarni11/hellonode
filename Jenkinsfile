@@ -5,6 +5,15 @@
         /* Let's make sure we have the repository cloned to our workspace */
 
         checkout scm
+            
+         emailext ( 
+       to: 'ykulkarni@vdrivit.com', 
+       subject: "Project Docker_Build_Push_Image : Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'", 
+       body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+         <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
+       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+     )
+ 
     }
     
         stage('Build image') {
@@ -12,6 +21,15 @@
          * docker build on the command line */
 
         app = docker.build("yogiraj11/docker-hub-credentials")
+         
+         emailext ( 
+       to: 'ykulkarni@vdrivit.com', 
+       subject: "Project Docker_Build_Push_Image : Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'", 
+       body: """<p>Completed Build: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+         <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
+       recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+     )
+            
     }
 
         stage('Test image') {
